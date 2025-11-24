@@ -1,0 +1,360 @@
+# SISTEMA DE RESERVAS - TRABAJO EN PARALELO
+
+## 🎯 OBJETIVO
+Permitir que los 4 programadores trabajen simultáneamente sin bloquearse entre sí.
+
+---
+
+## 📋 CONTRATO DE DATOS (Para todos)
+
+### Estructura del diccionario de reserva:
+```python
+reserva = {
+    'codigo': 'RES-20250119-001',    # String
+    'nombre': 'Juan Pérez',           # String
+    'servicio': 'Mesa restaurante',   # String
+    'fecha': '25/12/2025',            # String formato DD/MM/AAAA
+    'horario': '19:30',               # String formato HH:MM
+    'personas': 4,                    # Integer
+    'estado': 'activa'                # String: 'activa' o 'cancelada'
+}
+```
+
+### Lista global:
+```python
+reservas = []  # Lista de diccionarios
+```
+
+### Datos de prueba (copiar al inicio de cada archivo):
+```python
+# DATOS DE PRUEBA - Borrar en integración final
+reservas = [
+    {
+        'codigo': 'RES-20250119-001',
+        'nombre': 'Juan Pérez',
+        'servicio': 'Mesa de restaurante',
+        'fecha': '25/12/2025',
+        'horario': '19:30',
+        'personas': 4,
+        'estado': 'activa'
+    },
+    {
+        'codigo': 'RES-20250119-002',
+        'nombre': 'María García',
+        'servicio': 'Sala de reuniones',
+        'fecha': '26/12/2025',
+        'horario': '10:00',
+        'personas': 8,
+        'estado': 'activa'
+    },
+    {
+        'codigo': 'RES-20250119-003',
+        'nombre': 'Carlos López',
+        'servicio': 'Evento especial',
+        'fecha': '25/12/2025',
+        'horario': '20:00',
+        'personas': 50,
+        'estado': 'cancelada'
+    },
+    {
+        'codigo': 'RES-20250120-001',
+        'nombre': 'Ana Martínez',
+        'servicio': 'Sala de conferencias',
+        'fecha': '27/12/2025',
+        'horario': '15:00',
+        'personas': 12,
+        'estado': 'activa'
+    }
+]
+```
+
+---
+
+## 👤 PARTE 1: Validaciones y Entrada de Datos
+**Programador 1 - INDEPENDIENTE ✅**
+
+### Funciones a desarrollar:
+1. `validar_fecha(fecha)` → True/False
+2. `validar_horario(horario)` → True/False
+3. `validar_numero_personas(personas)` → True/False
+4. `solicitar_datos_reserva()` → diccionario (sin código)
+
+### Responsabilidades:
+- Validar formato de fecha DD/MM/AAAA
+- Validar formato de horario HH:MM
+- Validar que personas > 0
+- Solicitar todos los datos al usuario
+- Retornar diccionario con estructura acordada (código vacío)
+
+### Puede trabajar solo:
+✅ SÍ - Solo necesita las validaciones y retornar un diccionario
+
+### Archivo: `validaciones_entrada.py`
+
+### Función de prueba:
+```python
+if __name__ == "__main__":
+    # Probar validaciones
+    print(validar_fecha("25/12/2025"))  # True
+    print(validar_fecha("32/13/2025"))  # False
+    
+    # Probar solicitar datos
+    nueva_reserva = solicitar_datos_reserva()
+    print(nueva_reserva)
+```
+
+---
+
+## 👤 PARTE 2: Generación de Códigos y Disponibilidad
+**Programador 2 - INDEPENDIENTE ✅**
+
+### Funciones a desarrollar:
+1. `generar_codigo_unico(reservas)` → String
+2. `verificar_disponibilidad(fecha, horario, servicio, reservas)` → True/False
+3. `asignar_codigo_a_reserva(reserva, reservas)` → reserva con código
+
+### Responsabilidades:
+- Generar códigos únicos formato: `RES-AAAAMMDD-###`
+- Verificar que no se repitan códigos
+- Validar disponibilidad (máximo 3 reservas mismo horario/fecha/servicio)
+- Validar que fecha no sea del pasado (comparación texto)
+
+### Puede trabajar solo:
+✅ SÍ - Usa los datos de prueba para probar sus funciones
+
+### Archivo: `codigos_disponibilidad.py`
+
+### Función de prueba:
+```python
+if __name__ == "__main__":
+    # Probar generación de código
+    codigo = generar_codigo_unico(reservas)
+    print(f"Código generado: {codigo}")
+    
+    # Probar disponibilidad
+    disponible = verificar_disponibilidad("25/12/2025", "19:30", "Mesa de restaurante", reservas)
+    print(f"¿Disponible? {disponible}")
+    
+    # Probar asignación
+    nueva = {'nombre': 'Test', 'codigo': ''}
+    nueva = asignar_codigo_a_reserva(nueva, reservas)
+    print(f"Código asignado: {nueva['codigo']}")
+```
+
+---
+
+## 👤 PARTE 3: Listar y Cancelar Reservas
+**Programador 3 - INDEPENDIENTE ✅**
+
+### Funciones a desarrollar:
+1. `listar_todas_reservas(reservas)` → void (imprime)
+2. `buscar_reserva_por_codigo(codigo, reservas)` → reserva o None
+3. `cancelar_reserva(codigo, reservas)` → True/False
+4. `buscar_por_nombre(nombre, reservas)` → lista de reservas
+5. `buscar_por_fecha(fecha, reservas)` → lista de reservas
+
+### Responsabilidades:
+- Mostrar reservas en formato tabla
+- Buscar reservas por diferentes criterios
+- Cancelar reservas (cambiar estado a 'cancelada')
+- Manejar errores (código no existe, etc.)
+
+### Puede trabajar solo:
+✅ SÍ - Usa los datos de prueba para probar sus funciones
+
+### Archivo: `gestion_reservas.py`
+
+### Función de prueba:
+```python
+if __name__ == "__main__":
+    # Probar listar
+    listar_todas_reservas(reservas)
+    
+    # Probar buscar
+    reserva = buscar_reserva_por_codigo("RES-20250119-001", reservas)
+    print(reserva)
+    
+    # Probar cancelar
+    exito = cancelar_reserva("RES-20250119-002", reservas)
+    print(f"Cancelación exitosa: {exito}")
+    
+    # Probar búsqueda por nombre
+    resultados = buscar_por_nombre("Juan", reservas)
+    print(f"Encontradas: {len(resultados)}")
+```
+
+---
+
+## 👤 PARTE 4: Reportes y Exportación
+**Programador 4 - INDEPENDIENTE ✅**
+
+### Funciones a desarrollar:
+1. `reporte_reservas_por_fecha(fecha, reservas)` → void (imprime)
+2. `reporte_total_reservas(reservas)` → void (imprime)
+3. `reporte_primera_y_ultima(reservas)` → void (imprime)
+4. `menu_reportes(reservas)` → void (submenú)
+5. `exportar_a_archivo(reservas, nombre_archivo)` → True/False (opcional)
+
+### Responsabilidades:
+- Generar todos los reportes solicitados
+- Crear submenú de reportes
+- Exportar historial a archivo de texto
+- Calcular estadísticas (opcional)
+
+### Puede trabajar solo:
+✅ SÍ - Usa los datos de prueba para probar sus funciones
+
+### Archivo: `reportes.py`
+
+### Función de prueba:
+```python
+if __name__ == "__main__":
+    # Probar reporte por fecha
+    reporte_reservas_por_fecha("25/12/2025", reservas)
+    
+    # Probar reporte total
+    reporte_total_reservas(reservas)
+    
+    # Probar primera y última
+    reporte_primera_y_ultima(reservas)
+    
+    # Probar exportación
+    exito = exportar_a_archivo(reservas, "reservas_test.txt")
+    print(f"Exportación exitosa: {exito}")
+```
+
+---
+
+## 🔧 INTEGRACIÓN FINAL
+
+### Archivo: `main.py`
+
+```python
+# Importar todos los módulos
+from validaciones_entrada import *
+from codigos_disponibilidad import *
+from gestion_reservas import *
+from reportes import *
+
+# Lista global vacía (sin datos de prueba)
+reservas = []
+
+def crear_reserva_completa():
+    """Integra Parte 1 y Parte 2"""
+    # Parte 1: Solicitar datos
+    nueva_reserva = solicitar_datos_reserva()
+    
+    # Parte 2: Verificar disponibilidad
+    if verificar_disponibilidad(nueva_reserva['fecha'], 
+                                nueva_reserva['horario'], 
+                                nueva_reserva['servicio'], 
+                                reservas):
+        # Parte 2: Asignar código
+        nueva_reserva = asignar_codigo_a_reserva(nueva_reserva, reservas)
+        
+        # Agregar a la lista
+        reservas.append(nueva_reserva)
+        print("✅ Reserva creada exitosamente!")
+    else:
+        print("❌ No hay disponibilidad para esa fecha/horario/servicio")
+
+def menu_principal():
+    while True:
+        print("\n" + "="*50)
+        print("    SISTEMA DE GESTIÓN DE RESERVAS")
+        print("="*50)
+        print("1. Crear nueva reserva")
+        print("2. Listar todas las reservas")
+        print("3. Cancelar reserva")
+        print("4. Reportes")
+        print("5. Salir")
+        print("="*50)
+        
+        opcion = input("\nSeleccione opción (1-5): ").strip()
+        
+        if opcion == '1':
+            crear_reserva_completa()  # Parte 1 + 2
+        elif opcion == '2':
+            listar_todas_reservas(reservas)  # Parte 3
+        elif opcion == '3':
+            codigo = input("Código de reserva: ")
+            cancelar_reserva(codigo, reservas)  # Parte 3
+        elif opcion == '4':
+            menu_reportes(reservas)  # Parte 4
+        elif opcion == '5':
+            print("👋 ¡Hasta luego!")
+            break
+        else:
+            print("❌ Opción inválida")
+
+if __name__ == "__main__":
+    menu_principal()
+```
+
+---
+
+## 📅 CRONOGRAMA DE TRABAJO PARALELO
+
+### **Día 1-2: Desarrollo independiente**
+- ✅ Programador 1: Desarrolla y prueba validaciones
+- ✅ Programador 2: Desarrolla y prueba códigos/disponibilidad
+- ✅ Programador 3: Desarrolla y prueba listar/cancelar
+- ✅ Programador 4: Desarrolla y prueba reportes
+
+**TODOS usan los datos de prueba para trabajar**
+
+### **Día 3: Revisión cruzada**
+- Cada programador revisa el código de otro
+- Verificar que todos usen la misma estructura de datos
+- Hacer ajustes si es necesario
+
+### **Día 4: Integración**
+- Crear `main.py`
+- Importar todos los módulos
+- Probar flujo completo
+- Corregir errores de integración
+
+### **Día 5: Pruebas finales**
+- Probar todos los casos de uso
+- Probar casos extremos (lista vacía, códigos duplicados, etc.)
+- Documentar funciones
+
+### **Día 6: Entrega**
+- Limpiar código (eliminar datos de prueba)
+- Crear README con instrucciones
+- Empaquetar proyecto
+
+---
+
+## ✅ VENTAJAS DE ESTA METODOLOGÍA
+
+1. **Trabajo paralelo real**: Nadie está bloqueado esperando a otro
+2. **Pruebas independientes**: Cada uno prueba su módulo completo
+3. **Menos conflictos**: Cada uno en su archivo
+4. **Integración más fácil**: Todos siguen el mismo contrato de datos
+5. **Más rápido**: 2-3 días vs 5-6 días en modo secuencial
+
+---
+
+## 🚨 REGLAS IMPORTANTES
+
+1. **NO modificar la estructura del diccionario** sin consultar al equipo
+2. **Usar SIEMPRE los datos de prueba** durante desarrollo
+3. **Probar las funciones individualmente** antes de integrar
+4. **Documentar cada función** con comentarios
+5. **Comunicar cambios** que afecten a otros módulos
+
+---
+
+## 💡 COMUNICACIÓN DEL EQUIPO
+
+### Reuniones necesarias:
+- **Día 0**: Acordar estructura de datos (30 min)
+- **Día 2**: Check-in rápido de avances (15 min)
+- **Día 3**: Revisión cruzada (1 hora)
+- **Día 4**: Sesión de integración (2 horas)
+
+### Grupo de WhatsApp/Discord:
+- Compartir dudas rápidas
+- Notificar cuando terminen su parte
+- Coordinar reuniones de integración

@@ -1,0 +1,166 @@
+PARTE 1: Estructura Base y Creación de Reservas
+Responsable: Programador 1
+Tareas:
+
+Crear la estructura principal del programa
+
+Lista global para almacenar todas las reservas
+Menú principal con opciones (crear, listar, cancelar, reportes, salir)
+Función main() que controle el flujo del programa
+
+
+Implementar función de crear reserva
+
+Solicitar datos al usuario:
+
+Nombre del cliente
+Tipo de servicio (ej: sala, evento, mesa, etc.)
+Fecha (formato: DD/MM/AAAA) - validar formato texto
+Horario (formato: HH:MM) - validar formato texto
+Número de personas
+
+
+Crear diccionario con estructura:
+
+reserva = {
+         'codigo': '',  # Lo completará Programador 2
+         'nombre': '',
+         'servicio': '',
+         'fecha': '',
+         'horario': '',
+         'personas': 0,
+         'estado': 'activa'
+     }
+```
+   - Agregar la reserva a la lista principal
+
+3. **Validaciones básicas**
+   - Validar que no haya campos vacíos
+   - Validar formato de fecha (DD/MM/AAAA)
+   - Validar formato de horario (HH:MM)
+   - Validar que el número de personas sea mayor a 0
+
+**Entregable:** Módulo `crear_reserva.py` con funciones de creación y validación básica.
+
+---
+
+## **PARTE 2: Códigos Únicos y Validación de Disponibilidad**
+**Responsable: Programador 2**
+
+### Tareas:
+1. **Sistema de generación de códigos automáticos**
+   - Crear función `generar_codigo()` que genere códigos únicos
+   - Formato sugerido: `RES-AAAAMMDD-###` 
+     - Ejemplo: `RES-20250119-001`
+   - Lógica: usar fecha actual + contador secuencial
+   - Verificar que el código no exista en la lista de reservas
+
+2. **Validación de disponibilidad**
+   - Función `verificar_disponibilidad(fecha, horario, servicio)`
+   - Reglas de negocio:
+     - No permitir más de X reservas en la misma fecha/horario/servicio
+     - Validar que la fecha no sea del pasado (comparación de texto)
+     - Validar horarios válidos (ej: 08:00 a 22:00)
+   - Retornar `True` si está disponible, `False` si no
+
+3. **Integración con Parte 1**
+   - Asignar código automático a cada reserva creada
+   - Llamar a `verificar_disponibilidad()` antes de confirmar reserva
+   - Mostrar mensajes de error claros si no hay disponibilidad
+
+**Entregable:** Módulo `validaciones.py` con funciones de generación de códigos y verificación.
+
+---
+
+## **PARTE 3: Listar y Cancelar Reservas**
+**Responsable: Programador 3**
+
+### Tareas:
+1. **Función listar todas las reservas**
+   - Mostrar todas las reservas en formato tabla organizado
+   - Incluir todos los campos: código, nombre, servicio, fecha, horario, personas, estado
+   - Manejar caso cuando no hay reservas
+
+2. **Función cancelar reserva**
+   - Solicitar código de reserva al usuario
+   - Buscar la reserva en la lista
+   - Opciones:
+     - **Opción A:** Eliminar la reserva de la lista
+     - **Opción B:** Cambiar estado a 'cancelada' (mejor para historial)
+   - Confirmar cancelación con el usuario antes de ejecutar
+   - Mostrar mensajes de error si el código no existe
+
+3. **Sistema de búsqueda avanzada (Opcional)**
+   - Buscar reserva por código
+   - Buscar reservas por nombre de cliente
+   - Buscar reservas por fecha
+   - Buscar reservas por servicio
+   - Mostrar resultados en formato organizado
+
+4. **Función auxiliar para mostrar una reserva**
+   - Crear función `mostrar_reserva(reserva)` que formatee bonito una reserva individual
+
+**Entregable:** Módulo `gestion_reservas.py` con funciones de listado, cancelación y búsqueda.
+
+---
+
+## **PARTE 4: Reportes y Exportación**
+**Responsable: Programador 4**
+
+### Tareas:
+1. **Reportes obligatorios**
+   
+   **a) Reservas por fecha:**
+   - Solicitar fecha al usuario
+   - Filtrar y mostrar todas las reservas de esa fecha
+   - Mostrar cantidad total de reservas en esa fecha
+   
+   **b) Total de reservas:**
+   - Mostrar cantidad total de reservas activas
+   - Mostrar cantidad total de reservas canceladas
+   - Mostrar cantidad total general
+   
+   **c) Primera y última reserva:**
+   - Mostrar datos completos de la primera reserva ingresada
+   - Mostrar datos completos de la última reserva ingresada
+   - Manejar caso cuando no hay reservas
+
+2. **Menú de reportes**
+   - Crear submenú con todas las opciones de reportes
+   - Formato claro y organizado para cada reporte
+
+3. **Exportar historial (Opcional)**
+   - Función `exportar_a_archivo()`
+   - Exportar todas las reservas a archivo de texto (.txt)
+   - Formato sugerido:
+```
+     ========== HISTORIAL DE RESERVAS ==========
+     Fecha de exportación: DD/MM/AAAA
+     Total de reservas: X
+     
+     [Código] [Nombre] [Servicio] [Fecha] [Horario] [Personas] [Estado]
+     ...
+```
+   - Guardar archivo con nombre: `reservas_AAAAMMDD.txt`
+
+4. **Estadísticas adicionales (Opcional)**
+   - Servicio más reservado
+   - Fecha con más reservas
+   - Promedio de personas por reserva
+
+**Entregable:** Módulo `reportes.py` con todas las funciones de análisis y exportación.
+
+---
+
+## **INTEGRACIÓN FINAL (Todos juntos)**
+
+### Estructura de archivos del proyecto:
+```
+sistema_reservas/
+│
+├── main.py                 # Programa principal (Programador 1)
+├── crear_reserva.py        # Parte 1
+├── validaciones.py         # Parte 2
+├── gestion_reservas.py     # Parte 3
+├── reportes.py             # Parte 4
+└── README.txt              # Instrucciones de uso
