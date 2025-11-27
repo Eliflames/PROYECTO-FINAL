@@ -1,27 +1,29 @@
 # Aqui se pegara TODO
 
-from crear_reserva import (
-    validar_fecha, 
-    validar_horario, 
-    validar_personas, 
-    solicitar_datos_reserva)
+from Funciones.ValidacionesyentradadeDatos import(
+    validacion_dato_de_la_fecha,
+    horario_laboral,
+    validar_numero_de_clientes,
+    solicitar_datos_para_la_reserva    
+)
 
-from codigo_reserva import (
+from Funciones.codigos_disponibilidad import (
     verificar_disponibilidad, 
     asignar_codigo_a_reserva, 
     generar_codigo_unico)
 
 from Funciones.gestion_reservas import (
+    mostrar_reserva,
     buscar_reserva_por_codigo,
     listar_todas_reservas,
     cancelar_reserva,
     buscar_por_nombre,
     buscar_por_fecha,
     buscar_por_servicio,
-    menu_busqueda_avanzada,
+    menu_busqueda_avanzada
 )
 
-from reportes import (
+from Funciones.reportes import (
     reporte_reservas_por_fecha,
     reporte_total_reservas,
     reporte_primera_y_ultima,
@@ -29,7 +31,19 @@ from reportes import (
     menu_reportes
 )
 
-reservas = []
+reservas = [
+    
+    {
+      "codigo": ['codigo'],
+      "nombre": ['nombre'],
+      "servicio": ['servicio'],
+      "fecha": ['fecha'],
+      "horario": ['horario'],
+      "personas": ['personas'],
+      "estado": ['estado']
+      
+    }
+]
 
 def crear_reserva_completa():
     print("\n" + "="*70)
@@ -38,7 +52,7 @@ def crear_reserva_completa():
     
     # Solicitar datos de reserva
     print("\n📝 Por favor, ingrese los datos de la reserva:")
-    nueva_reserva = solicitar_datos_reserva()
+    nueva_reserva = solicitar_datos_para_la_reserva()
     
     # PASO 2: Verificar disponibilidad (usa función de Parte 2)
     print("\n🔍 Verificando disponibilidad...")

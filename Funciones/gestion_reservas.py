@@ -276,28 +276,22 @@ def menu_busqueda_avanzada(reservas):
         print('3. Buscar por Servicio')
         print('4. Volver al Menú Principal')
         
-        opcion = input('\nSeleccione una opción (1-5): ').strip()
+        opcion = input('\nSeleccione una opción (1-4): ').strip()
         
         if opcion == '1':
-            codigo = input('\nIngrese el codigo de reserva a buscar: ').strip()
-            reserva = buscar_reserva_por_codigo(codigo, reservas)
-            if reserva:
-                print('\n✅ Reserva encontrada:')
-                mostrar_reserva([reserva])
-        elif opcion == '2':
             nombre = input('\nIngrese el nombre del cliente a buscar: ').strip()
             buscar_por_nombre(nombre, reservas)
-        elif opcion == '3':
+        elif opcion == '2':
             fecha = input('\nIngrese la fecha (DD/MM/AAAA) a buscar: ').strip()
             buscar_por_fecha(fecha, reservas)
-        elif opcion == '4':
+        elif opcion == '3':
             servicio = input('\nIngrese el servicio a buscar: ').strip()
             buscar_por_servicio(servicio, reservas)
-        elif opcion == '5':
+        elif opcion == '4':
             print('\n Volviendo al menú principal...\n')
             break
         else:
-            print('\n ❌ Opción inválida. Por favor, seleccione una opción válida (1-5).\n')
+            print('\n ❌ Opción inválida. Por favor, seleccione una opción válida (1-4).\n')
 
 
 
