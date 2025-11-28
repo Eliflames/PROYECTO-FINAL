@@ -106,6 +106,8 @@ def solicitar_datos_para_la_reserva(): # recaba todos los datos y devuelve un di
 
     # Código vacío según especificación
     datos_de_la_reserva['codigo'] = ''
+    # Estado por defecto: activa
+    datos_de_la_reserva['estado'] = 'activa'
     return datos_de_la_reserva
     
     
