@@ -39,20 +39,37 @@ def verificar_disponibilidad(fecha: str, horario: str, servicio: str, reservas: 
     - Fecha válida y no en pasado.
     - Máximo 3 reservas por combinación.
     """
-    try:
-        fecha_dt = datetime.strptime(fecha, '%d/%m/%Y').date()
-    except ValueError:
+    # Intentar parsear la fecha con formatos comunes (DD-MM-YYYY y DD/MM/YYYY)
+    fecha_dt = None
+    for fmt in ('%d-%m-%Y', '%d/%m/%Y'):
+        try:
+            fecha_dt = datetime.strptime(fecha, fmt).date()
+            break
+        except ValueError:
+            continue
+
+    if fecha_dt is None:
         return False
 
     if fecha_dt < date.today():
         return False
 
-    coincidencias = sum(
-        1 for r in reservas
-        if r.get('fecha') == fecha
-        and r.get('horario') == horario
-        and r.get('servicio') == servicio
-    )
+    # Comparar normalizando las fechas de las reservas
+    def _parse_reserva_fecha(f):
+        if not f:
+            return None
+        for fmt in ('%d-%m-%Y', '%d/%m/%Y'):
+            try:
+                return datetime.strptime(f, fmt).date()
+            except Exception:
+                continue
+        return None
+
+    coincidencias = 0
+    for r in reservas:
+        r_fecha = _parse_reserva_fecha(r.get('fecha'))
+        if r_fecha == fecha_dt and r.get('horario') == horario and r.get('servicio') == servicio:
+            coincidencias += 1
 
     return coincidencias < 3
 
@@ -72,7 +89,6 @@ def asignar_codigo_a_reserva(reserva: Dict, reservas: List[Dict]) -> Dict:
             raise ValueError("No hay disponibilidad para la reserva indicada.")
 
     reserva['codigo'] = generar_codigo_unico(reservas)
-    reservas.append(reserva)
     return reserva
 
 

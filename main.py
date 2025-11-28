@@ -31,19 +31,19 @@ from Funciones.reportes import (
     menu_reportes
 )
 
-reservas = [
+reservas = []
     
-    {
-      "codigo": ['codigo'],
-      "nombre": ['nombre'],
-      "servicio": ['servicio'],
-      "fecha": ['fecha'],
-      "horario": ['horario'],
-      "personas": ['personas'],
-      "estado": ['estado']
+nueva_reserva ={
+"codigo": '',
+"nombre": ['nombre'],
+"servicio": ['servicio'],
+"fecha": ['fecha'],
+"horario": ['horario'],
+"personas": ['personas'],
+"estado": ['estado']
       
     }
-]
+
 
 def crear_reserva_completa():
     print("\n" + "="*70)
