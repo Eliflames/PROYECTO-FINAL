@@ -29,15 +29,20 @@ def horario_laboral():
     """aqui se le pide al usuario que ingrese la hora a la que desea hacer la reserva"""
     while True:
         hora_input = input("Ingrese la hora de la reserva (HH:MM): ")
-
+           
         try:
             hora, minuto = map(int, hora_input.split(':'))
+            
+            if hora_input < datetime.datetime.now().strftime("%H:%M"):
+                print("❌ No se pueden hacer reservas en horas pasadas.") 
+                continue
             
             if 0 <= minuto < 60:  # se usa este rango de minutos como los validos
                 if hora_inicio <= hora < hora_fin:
                     return f"{hora:02d}:{minuto:02d}"
                     """la funcion de arriba permita que se muestre la hora y minuto en formato de dos- 
                     digitos como tambien muestra las horas en pantalla pd:el que me lo borre es (MARICON)"""
+           
                 else:
                     print(f"La hora debe estar entre {hora_inicio}:00 y {hora_fin}:00.")
             else:

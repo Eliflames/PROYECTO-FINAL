@@ -90,7 +90,7 @@ def exportar_a_archivo(reservas, nombre_archivo):
             for r in reservas:
                 linea = (
                     f"{r.get('codigo','')};{r.get('nombre','')};{r.get('servicio','')};"
-                    f"{r.get('fecha','')};{r.get('horario','')};{r.get('personas','')};{r.get('estado','')}\n"
+                    f"{r.get('fecha','')};{r.get('horario','')};{r.get('personas','')};{r.get('estado','')} \n"
                 )
                 f.write(linea)
         print(f"Exportación completada a '{nombre_archivo}'")
