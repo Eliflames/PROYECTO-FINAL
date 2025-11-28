@@ -122,7 +122,7 @@ def cancelar_reserva_menu():
         return
     
     # Solicitar código
-    codigo = input("\nIngrese el código de la reserva a cancelar: ").strip()
+    codigo = input("\nIngrese el nombre del cliente de la reserva a cancelar: ").strip()
     
     # Validar que no esté vacío
     if not codigo:
@@ -131,7 +131,7 @@ def cancelar_reserva_menu():
         return
     
     # ✅ Usar función de Parte 3 y verificar resultado
-    exito = cancelar_reserva(codigo, reservas)
+    exito = cancelar_reserva(nombre, reservas)
     
     # ✅ Mostrar mensaje según resultado
     if exito:

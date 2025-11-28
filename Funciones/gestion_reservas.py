@@ -80,14 +80,14 @@ def buscar_reserva_por_codigo(codigo, reservas):
 
 # FUNCIÓN 3: CANCELAR RESERVA
 
-def cancelar_reserva(codigo, reservas):
+def cancelar_reserva(nombre, reservas):
     
     print('\n' + '=' * 80)
     print(' ' * 30 + 'CANCELAR RESERVA')
     print('=' * 80)
     
     #MANEJO DE ERROR: Código vacío
-    if not codigo or codigo.strip() == "":
+    if not nombre or nombre.strip() == "":
         print('\n ❌ El código de reserva no puede estar vacío.\n')
         print('=' * 80 + '\n')
         return False
@@ -100,11 +100,11 @@ def cancelar_reserva(codigo, reservas):
     
     # Buscar la reserva
     for reserva in reservas:
-        if reserva['codigo'].upper() == codigo.upper():
+        if reserva['nombre'].upper() == nombre.upper():
             
             #MANEJO DE ERROR: Reserva ya cancelada
             if reserva['estado'] == 'cancelada':
-                print(f'\n ⚠️ La reserva con código {codigo} ya está cancelada.\n')
+                print(f'\n ⚠️ La reserva con código {nombre} ya está cancelada.\n')
                 mostrar_reserva(reserva)
                 print('=' * 80 + '\n')
                 return False
@@ -122,13 +122,15 @@ def cancelar_reserva(codigo, reservas):
                 print('\n ✅ La reserva ha sido cancelada exitosamente.\n')
                 print('=' * 80 + '\n')
                 return True
-            else:
+            elif confirmacion == 'N' or confirmacion == 'NO' or confirmacion == 'NOT':
                 print('\n ❌ La cancelación ha sido abortada por el usuario.\n')
                 print('=' * 80 + '\n')
                 return False
+            else:
+                print("\n ❌ Respuesta no valida. Se cancela la operación. \n")
                 
     # MANEJO DE ERROR: Código no encontrado
-    print(f'\n ❌ No se encontró ninguna reserva con el código: {codigo}\n')
+    print(f'\n ❌ No se encontró ninguna reserva con el código: {nombre}\n')
     print('=' * 80 + '\n')
     return False
 
@@ -171,8 +173,8 @@ def buscar_por_nombre(nombre, reservas):
         print(f'\n ⚠️ No se encontraron reservas para el cliente: {nombre}\n')
         print('=' * 80 + '\n')
         return []
-    
-    print(f'\n ✅ Se encontraron {len(resultados)} reservas para el nombre: {nombre}\n')
+    else:
+        print(f'\n ✅ Se encontraron {len(resultados)} reservas para el nombre: {nombre}\n')
     
     for i, reserva in enumerate(resultados, 1):
         print(f'\n--- Reserva {i} ---')
