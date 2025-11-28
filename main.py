@@ -1,5 +1,7 @@
 # Aqui se pegara TODO
 
+from lista_de_reservas import reservas
+
 from Funciones.ValidacionesyentradadeDatos import(
     validacion_dato_de_la_fecha,
     horario_laboral,
@@ -31,18 +33,7 @@ from Funciones.reportes import (
     menu_reportes
 )
 
-reservas = []
     
-nueva_reserva ={
-"codigo": '',
-"nombre": ['nombre'],
-"servicio": ['servicio'],
-"fecha": ['fecha'],
-"horario": ['horario'],
-"personas": ['personas'],
-"estado": ['estado']
-      
-    }
 
 
 def crear_reserva_completa():
