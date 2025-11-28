@@ -104,6 +104,15 @@ def solicitar_datos_para_la_reserva(): # recaba todos los datos y devuelve un di
         else:
             print("El número de personas debe ser mayor a 0")
 
+    # Solicitar servicio (nuevo): asegurar que exista la clave 'servicio'
+    while True:
+        servicio = input("Ingrese el servicio (ej. Mesa de restaurante): ").strip()
+        if servicio:
+            datos_de_la_reserva['servicio'] = servicio
+            break
+        else:
+            print("El servicio no puede estar vacío.")
+
     # Código vacío según especificación
     datos_de_la_reserva['codigo'] = ''
     # Estado por defecto: activa
