@@ -1,6 +1,44 @@
 # reportes.py
-import datetime
 
+# DATOS DE PRUEBA - BORRAR en integración final
+reservas = [
+	{
+		'codigo': 'RES-20250119-001',
+		'nombre': 'Juan Pérez',
+		'servicio': 'Mesa de restaurante',
+		'fecha': '25/12/2025',
+		'horario': '19:30',
+		'personas': 4,
+		'estado': 'activa'
+	},
+	{
+		'codigo': 'RES-20250119-002',
+		'nombre': 'María García',
+		'servicio': 'Sala de reuniones',
+		'fecha': '26/12/2025',
+		'horario': '10:00',
+		'personas': 8,
+		'estado': 'activa'
+	},
+	{
+		'codigo': 'RES-20250119-003',
+		'nombre': 'Carlos López',
+		'servicio': 'Evento especial',
+		'fecha': '25/12/2025',
+		'horario': '20:00',
+		'personas': 50,
+		'estado': 'cancelada'
+	},
+	{
+		'codigo': 'RES-20250120-001',
+		'nombre': 'Ana Martínez',
+		'servicio': 'Sala de conferencias',
+		'fecha': '27/12/2025',
+		'horario': '15:00',
+		'personas': 12,
+		'estado': 'activa'
+	}
+]
 
 #Las funciones de reporte reciben la lista de reservas como parámetro.
 def reporte_reservas_por_fecha(fecha, reservas):
@@ -57,112 +95,27 @@ def reporte_primera_y_ultima(reservas):
 	print(resumen(ultima))
 
 
+def exportar_a_archivo(reservas, nombre_archivo):
+	"""Exporta el historial de reservas a un archivo de texto.
 
-def exportar_a_archivo(reservas, nombre_archivo=None):
+	Cada reserva se guarda en una línea en formato legible.
+	Retorna True si se escribe correctamente, False en caso de error.
+	"""
+	try:
+		with open(nombre_archivo, 'w', encoding='utf-8') as f:
+			for r in reservas:
+				linea = (
+					f"{r.get('codigo','')};{r.get('nombre','')};{r.get('servicio','')};"
+					f"{r.get('fecha','')};{r.get('horario','')};{r.get('personas','')};{r.get('estado','')}\n"
+				)
+				f.write(linea)
+		print(f"Exportación completada a '{nombre_archivo}'")
+		return True
+	except Exception as e:
+		print(f"Error al exportar a archivo: {e}")
+		return False
 
-    print("\n" + "="*60)
-    print("        EXPORTAR HISTORIAL A ARCHIVO")
-    print("="*60)
-    
-    # Verificar si hay reservas
-    if len(reservas) == 0:
-        print("\n⚠️  No hay reservas para exportar.\n")
-        print("="*60 + "\n")
-        return False
-    
-    # Generar nombre de archivo si no se proporcionó
-    if nombre_archivo is None:
-        fecha_actual = datetime.now().strftime("%Y%m%d_%H%M%S")
-        nombre_archivo = f"reservas_{fecha_actual}.txt"
-    
-    try:
-        # Abrir archivo para escribir
-        with open(nombre_archivo, 'w', encoding='utf-8') as archivo:
-            # Escribir encabezado
-            archivo.write("="*60 + "\n")
-            archivo.write("         HISTORIAL DE RESERVAS\n")
-            archivo.write("="*60 + "\n")
-            
-            # Fecha de exportación
-            fecha_hora = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-            archivo.write(f"Fecha de exportación: {fecha_hora}\n")
-            archivo.write(f"Total de reservas: {len(reservas)}\n")
-            archivo.write("="*60 + "\n\n")
-            
-            # Escribir cada reserva
-            for i, reserva in enumerate(reservas, 1):
-                archivo.write(f"[{i}] {reserva['codigo']}\n")
-                archivo.write(f"    Cliente:  {reserva['nombre']}\n")
-                archivo.write(f"    Servicio: {reserva['servicio']}\n")
-                archivo.write(f"    Fecha:    {reserva['fecha']}\n")
-                archivo.write(f"    Horario:  {reserva['horario']}\n")
-                archivo.write(f"    Personas: {reserva['personas']}\n")
-                archivo.write(f"    Estado:   {reserva['estado'].upper()}\n")
-                archivo.write("\n" + "-"*60 + "\n\n")
-            
-            # Escribir estadísticas al final
-            activas = sum(1 for r in reservas if r['estado'] == 'activa')
-            canceladas = sum(1 for r in reservas if r['estado'] == 'cancelada')
-            total_personas = sum(r['personas'] for r in reservas if r['estado'] == 'activa')
-            
-            archivo.write("="*60 + "\n")
-            archivo.write("ESTADÍSTICAS:\n")
-            archivo.write(f"  Reservas activas:    {activas}\n")
-            archivo.write(f"  Reservas canceladas: {canceladas}\n")
-            archivo.write(f"  Total de personas:   {total_personas}\n")
-            archivo.write("="*60 + "\n")
-            archivo.write("Fin del reporte\n")
-            archivo.write("="*60 + "\n")
-        
-        # Confirmación
-        print(f"\n✅ Historial exportado exitosamente!")
-        print(f"   Archivo: {nombre_archivo}")
-        print(f"   Total de reservas exportadas: {len(reservas)}")
-        print("="*60 + "\n")
-        return True
-        
-    except Exception as e:
-        print(f"\n❌ Error al exportar archivo: {e}\n")
-        print("="*60 + "\n")
-        return False
 
-def reporte_servicio_mas_reservado(reservas):
-    """
-    Muestra estadísticas por tipo de servicio
-    """
-    print("\n" + "="*60)
-    print("     REPORTE: SERVICIOS MÁS RESERVADOS")
-    print("="*60)
-    
-    if len(reservas) == 0:
-        print("\n⚠️  No hay reservas registradas.\n")
-        print("="*60 + "\n")
-        return
-    
-    # Contar reservas por servicio
-    servicios_count = {}
-    
-    for reserva in reservas:
-        if reserva['estado'] == 'activa':
-            servicio = reserva['servicio']
-            if servicio not in servicios_count:
-                servicios_count[servicio] = 0
-            servicios_count[servicio] += 1
-    
-    # Ordenar por cantidad (de mayor a menor)
-    servicios_ordenados = sorted(servicios_count.items(), 
-                                key=lambda x: x[1], 
-                                reverse=True)
-    
-    # Mostrar ranking
-    print("\n🏆 RANKING DE SERVICIOS:\n")
-    for i, (servicio, cantidad) in enumerate(servicios_ordenados, 1):
-        barra = "█" * cantidad
-        print(f"  {i}. {servicio:<25} {barra} ({cantidad})")
-    
-    print("="*60 + "\n")
-	
-#Sub menu del archivo main
 def menu_reportes(reservas):
 	"""Submenú para ejecutar reportes interactivos."""
 	while True:
@@ -193,4 +146,11 @@ def menu_reportes(reservas):
 			print("Opción inválida, intente de nuevo.")
 
 
+if __name__ == "__main__":
+	# Pruebas rápidas
+	reporte_reservas_por_fecha("25/12/2025", reservas)
+	reporte_total_reservas(reservas)
+	reporte_primera_y_ultima(reservas)
+	exito = exportar_a_archivo(reservas, "reservas_test.txt")
+	print(f"Exportación exitosa: {exito}")
 

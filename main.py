@@ -23,7 +23,7 @@ from Funciones.gestion_reservas import (
     menu_busqueda_avanzada
 )
 
-from Funciones.reportes import (
+from Funciones.Reportes import (
     reporte_reservas_por_fecha,
     reporte_total_reservas,
     reporte_primera_y_ultima,
