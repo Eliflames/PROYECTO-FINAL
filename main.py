@@ -54,15 +54,6 @@ def crear_reserva_completa():
     print("\n📝 Por favor, ingrese los datos de la reserva:")
     nueva_reserva = solicitar_datos_para_la_reserva()
     
-    # Defensa adicional: si por alguna razón no se incluyó 'servicio', solicitarlo aquí
-    if 'servicio' not in nueva_reserva or not nueva_reserva.get('servicio'):
-        servicio_input = input("\nIngrese el servicio para la reserva: ").strip()
-        if not servicio_input:
-            print("\n❌ Servicio no puede estar vacío. Reserva abortada.")
-            input("\nPresione Enter para continuar...")
-            return
-        nueva_reserva['servicio'] = servicio_input
-    
     # PASO 2: Verificar disponibilidad (usa función de Parte 2)
     print("\n🔍 Verificando disponibilidad...")
     disponible = verificar_disponibilidad(
@@ -122,16 +113,16 @@ def cancelar_reserva_menu():
         return
     
     # Solicitar código
-    nombre = input("\nIngrese el nombre del cliente de la reserva a cancelar: ").strip()
+    codigo = input("\nIngrese el código de la reserva a cancelar: ").strip()
     
     # Validar que no esté vacío
-    if not nombre:
+    if not codigo:
         print("\n❌ Código no puede estar vacío.\n")
         input("Presione Enter para continuar...")
         return
     
     # ✅ Usar función de Parte 3 y verificar resultado
-    exito = cancelar_reserva(nombre, reservas)
+    exito = cancelar_reserva(codigo, reservas)
     
     # ✅ Mostrar mensaje según resultado
     if exito:

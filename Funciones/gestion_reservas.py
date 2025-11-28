@@ -80,14 +80,14 @@ def buscar_reserva_por_codigo(codigo, reservas):
 
 # FUNCIÓN 3: CANCELAR RESERVA
 
-def cancelar_reserva(nombre, reservas):
+def cancelar_reserva(codigo, reservas):
     
     print('\n' + '=' * 80)
     print(' ' * 30 + 'CANCELAR RESERVA')
     print('=' * 80)
     
     #MANEJO DE ERROR: Código vacío
-    if not nombre or nombre.strip() == "":
+    if not codigo or codigo.strip() == "":
         print('\n ❌ El código de reserva no puede estar vacío.\n')
         print('=' * 80 + '\n')
         return False
@@ -100,11 +100,11 @@ def cancelar_reserva(nombre, reservas):
     
     # Buscar la reserva
     for reserva in reservas:
-        if reserva['nombre'].upper() == nombre.upper():
+        if reserva['codigo'].upper() == codigo.upper():
             
             #MANEJO DE ERROR: Reserva ya cancelada
             if reserva['estado'] == 'cancelada':
-                print(f'\n ⚠️ La reserva con código {nombre} ya está cancelada.\n')
+                print(f'\n ⚠️ La reserva con código {codigo} ya está cancelada.\n')
                 mostrar_reserva(reserva)
                 print('=' * 80 + '\n')
                 return False
@@ -127,10 +127,10 @@ def cancelar_reserva(nombre, reservas):
                 print('=' * 80 + '\n')
                 return False
             else:
-                print("\n ❌ Respuesta no valida. Se cancela la operación. \n")
+                print("\n ❌ Respuesta no valida. Se cancela la operación")
                 
     # MANEJO DE ERROR: Código no encontrado
-    print(f'\n ❌ No se encontró ninguna reserva con el código: {nombre}\n')
+    print(f'\n ❌ No se encontró ninguna reserva con el código: {codigo}\n')
     print('=' * 80 + '\n')
     return False
 
