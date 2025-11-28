@@ -53,6 +53,7 @@ def crear_reserva_completa():
     # Solicitar datos de reserva
     print("\n📝 Por favor, ingrese los datos de la reserva:")
     nueva_reserva = solicitar_datos_para_la_reserva()
+    
     # Defensa adicional: si por alguna razón no se incluyó 'servicio', solicitarlo aquí
     if 'servicio' not in nueva_reserva or not nueva_reserva.get('servicio'):
         servicio_input = input("\nIngrese el servicio para la reserva: ").strip()
