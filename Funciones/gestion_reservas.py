@@ -170,11 +170,11 @@ def buscar_por_nombre(nombre, reservas):
     #Mostrar resultados
     
     if len(resultados) > 0:
+        print(f'\n ✅ Se encontraron {len(resultados)} reservas para el nombre: {nombre}\n')
+    else:
         print(f'\n ⚠️ No se encontraron reservas para el cliente: {nombre}\n')
         print('=' * 80 + '\n')
         return []
-    else:
-        print(f'\n ✅ Se encontraron {len(resultados)} reservas para el nombre: {nombre}\n')
     
     for i, reserva in enumerate(resultados, 1):
         print(f'\n--- Reserva {i} ---')
