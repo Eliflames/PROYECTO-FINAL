@@ -109,10 +109,10 @@ def cancelar_reserva_menu():
         input("Presione Enter para continuar...")
         return
     
-    # ✅ Usar función de Parte 3 y verificar resultado
+    # Usar función de Parte 3 y verificar resultado
     exito = cancelar_reserva(codigo, reservas)
     
-    # ✅ Mostrar mensaje según resultado
+    # Mostrar mensaje según resultado
     if exito:
         print("\n" + "="*70)
         print("✅ La reserva fue cancelada exitosamente.")
@@ -158,13 +158,13 @@ def menu_principal():
             crear_reserva_completa()
         
         elif opcion == '2':
-            mostrar_todas_reservas()  # ✅ CORREGIDO
+            mostrar_todas_reservas()  
         
         elif opcion == '3':
-            buscar_reservas()  # ✅ CORREGIDO
+            buscar_reservas()  
         
         elif opcion == '4':
-            cancelar_reserva_menu()  # ✅ CORREGIDO
+            cancelar_reserva_menu()  
         
         elif opcion == '5':
             acceder_reportes()
@@ -238,4 +238,5 @@ if __name__ == "__main__":
         import traceback
 
         traceback.print_exc()
+
 
