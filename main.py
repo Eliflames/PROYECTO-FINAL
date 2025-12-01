@@ -33,7 +33,9 @@ reservas = []
 
 def crear_reserva_completa():
     print("\n" + "="*70)
+    #espaciado para centrar el título, lo que es que arroja 70 caracteres de ancho
     print(" "*25 + "NUEVA RESERVA")
+    #este hace una línea debajo del título
     print("="*70)
     
     # Solicitar datos de reserva
@@ -129,6 +131,7 @@ def acceder_reportes():
     menu_reportes(reservas)
 
 def menu_principal():
+    # si el usuario el de a enter la condicion se cumple y entra al bucle
     while True:
         print("\n" + "="*70)
         print(" "*20 + "SISTEMA DE GESTIÓN DE RESERVAS")
@@ -145,7 +148,9 @@ def menu_principal():
         
         # Mostrar info rápida
         activas = sum(1 for r in reservas if r.get('estado') == 'activa')
+        # este print muestra el estado actual de las reservas
         print(f"\n📊 Estado actual: {len(reservas)} reserva(s) total | {activas} activa(s)")
+        # pide al usuario que seleccione una opción
         
         opcion = input("\n👉 Seleccione una opción (1-7): ").strip()
         
@@ -171,11 +176,13 @@ def menu_principal():
             print("="*70)
             
             if len(reservas) == 0:
+                # no reservara si no hay nada que exportar
                 print("\n⚠️  No hay reservas para exportar.\n")
                 input("Presione Enter para continuar...")
                 continue
             
             from datetime import datetime
+            #aqui se genera el nombre del archivo con la fecha y hora actual
             fecha_actual = datetime.now().strftime("%Y%m%d_%H%M%S")
             nombre_archivo = f"reservas_{fecha_actual}.txt"
             
@@ -188,17 +195,19 @@ def menu_principal():
             input("\nPresione Enter para continuar...")
         
         elif opcion == '7':
+            # aqui se maneja la salida del programa
             print("\n" + "="*70)
             print(" "*15 + "¡Gracias por usar el sistema!")
             print(" "*20 + "Hasta pronto 👋")
             print("="*70 + "\n")
             break
-        
+        #aqui se maneja el caso de una opción inválida
         else:
             print("\n❌ Opción inválida. Por favor seleccione 1-7.")
             input("\nPresione Enter para continuar...")
 
 def mostrar_bienvenida():
+    # Mensaje de bienvenida, que va antes del menú principal
     print("\n" + "="*70)
     print(" "*15 + "BIENVENIDO AL SISTEMA DE RESERVAS")
     print("="*70)
@@ -211,16 +220,21 @@ def mostrar_bienvenida():
     input("\n  Presione Enter para continuar...")
 
 if __name__ == "__main__":
+    # Manejo de excepciones a nivel global
     try:
+        # Mostrar bienvenida y menú principal
         mostrar_bienvenida()
         menu_principal()
         
     except KeyboardInterrupt:
+        # Manejo de Ctrl+C para salir limpiamente
         print("\n\n⚠️  Programa interrumpido por el usuario.")
         print("👋 ¡Hasta pronto!\n")
     
     except Exception as e:
+        # Manejo de cualquier otra excepción inesperada
         print(f"\n❌ Error inesperado: {e}")
         print("Por favor, contacte al administrador del sistema.\n")
         import traceback
+
         traceback.print_exc()
