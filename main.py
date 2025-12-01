@@ -97,7 +97,7 @@ def cancelar_reserva_menu():
     # Verificar que haya reservas
     if len(reservas) == 0:
         print("\n⚠️  No hay reservas en el sistema.\n")
-        input("Presione Enter para continuar...")
+        input("\nPresione Enter para continuar...")
         return
     
     # Solicitar código
@@ -238,3 +238,4 @@ if __name__ == "__main__":
         import traceback
 
         traceback.print_exc()
+
