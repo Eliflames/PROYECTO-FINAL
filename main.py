@@ -1,18 +1,18 @@
 
 
 
-from crear_reserva import (
+from Funciones.crear_reserva import (
     validar_fecha, 
     validar_horario, 
     validar_personas, 
     solicitar_datos_reserva)
 
-from codigo_reserva import (
+from Funciones.codigo_reserva import (
     verificar_disponibilidad, 
     asignar_codigo_a_reserva, 
     generar_codigo_unico)
 
-from gestion_reservas import (
+from Funciones.gestion_reservas import (
     buscar_reserva_por_codigo,
     listar_todas_reservas,
     cancelar_reserva,
@@ -22,7 +22,7 @@ from gestion_reservas import (
     menu_busqueda_avanzada,
 )
 
-from reportes import (
+from Funciones.reportes import (
     reporte_reservas_por_fecha,
     reporte_total_reservas,
     reporte_primera_y_ultima,
@@ -243,18 +243,18 @@ if __name__ == "__main__":
 
 
 
-from crear_reserva import (
+from Funciones.crear_reserva import (
     validar_fecha, 
     validar_horario, 
     validar_personas, 
     solicitar_datos_reserva)
 
-from codigo_reserva import (
+from Funciones.codigo_reserva import (
     verificar_disponibilidad, 
     asignar_codigo_a_reserva, 
     generar_codigo_unico)
 
-from gestion_reservas import (
+from Funciones.gestion_reservas import (
     buscar_reserva_por_codigo,
     listar_todas_reservas,
     cancelar_reserva,
@@ -264,7 +264,7 @@ from gestion_reservas import (
     menu_busqueda_avanzada,
 )
 
-from reportes import (
+from Funciones.reportes import (
     reporte_reservas_por_fecha,
     reporte_total_reservas,
     reporte_primera_y_ultima,
