@@ -234,9 +234,9 @@ def solicitar_datos_reserva():
     # SOLICITAR NOMBRE
     # ========================================
     while True:
-        nombre = input('\n👤 Ingrese su nombre completo: ').strip()
-        if nombre == '':
-            print('❌ El nombre no puede estar vacío. Intente nuevamente.')
+        nombre = input('\n👤 Ingrese su nombre completo: ').strip() # Arreglado 
+        if nombre == '' or nombre.isdigit():
+            print('❌ El nombre no puede estar vacío ni ser un numero. Intente nuevamente.')
         else:
             break
     
@@ -335,3 +335,4 @@ def solicitar_datos_reserva():
     }
     
     return reserva
+
