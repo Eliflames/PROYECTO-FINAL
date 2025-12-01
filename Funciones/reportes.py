@@ -1,3 +1,4 @@
+#Parte 4 Reportes del sistema
 #Es la parte del sistema encargada de analizar, visualizar y almacenar los datos registrados.
 from datetime import datetime
 
