@@ -1,1 +1,0 @@
-reservas = []  # Lista principal (accesible por todos los módulos)

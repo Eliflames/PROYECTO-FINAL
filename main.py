@@ -1,31 +1,27 @@
-# Aqui se pegara TODO
 
-from lista_de_reservas import reservas
 
-from Funciones.ValidacionesyentradadeDatos import(
-    validacion_dato_de_la_fecha,
-    horario_laboral,
-    validar_numero_de_clientes,
-    solicitar_datos_para_la_reserva    
-)
+from crear_reserva import (
+    validar_fecha, 
+    validar_horario, 
+    validar_personas, 
+    solicitar_datos_reserva)
 
-from Funciones.codigos_disponibilidad import (
+from codigo_reserva import (
     verificar_disponibilidad, 
     asignar_codigo_a_reserva, 
     generar_codigo_unico)
 
-from Funciones.gestion_reservas import (
-    mostrar_reserva,
+from gestion_reservas import (
     buscar_reserva_por_codigo,
     listar_todas_reservas,
     cancelar_reserva,
     buscar_por_nombre,
     buscar_por_fecha,
     buscar_por_servicio,
-    menu_busqueda_avanzada
+    menu_busqueda_avanzada,
 )
 
-from Funciones.reportes import (
+from reportes import (
     reporte_reservas_por_fecha,
     reporte_total_reservas,
     reporte_primera_y_ultima,
@@ -33,17 +29,18 @@ from Funciones.reportes import (
     menu_reportes
 )
 
-    
-
+reservas = []
 
 def crear_reserva_completa():
     print("\n" + "="*70)
+    #espaciado para centrar el título, lo que es que arroja 70 caracteres de ancho
     print(" "*25 + "NUEVA RESERVA")
+    #este hace una línea debajo del título
     print("="*70)
     
     # Solicitar datos de reserva
     print("\n📝 Por favor, ingrese los datos de la reserva:")
-    nueva_reserva = solicitar_datos_para_la_reserva()
+    nueva_reserva = solicitar_datos_reserva()
     
     # PASO 2: Verificar disponibilidad (usa función de Parte 2)
     print("\n🔍 Verificando disponibilidad...")
@@ -100,7 +97,7 @@ def cancelar_reserva_menu():
     # Verificar que haya reservas
     if len(reservas) == 0:
         print("\n⚠️  No hay reservas en el sistema.\n")
-        input("Presione Enter para continuar...")
+        input("\nPresione Enter para continuar...")
         return
     
     # Solicitar código
@@ -112,10 +109,10 @@ def cancelar_reserva_menu():
         input("Presione Enter para continuar...")
         return
     
-    # ✅ Usar función de Parte 3 y verificar resultado
+    # Usar función de Parte 3 y verificar resultado
     exito = cancelar_reserva(codigo, reservas)
     
-    # ✅ Mostrar mensaje según resultado
+    # Mostrar mensaje según resultado
     if exito:
         print("\n" + "="*70)
         print("✅ La reserva fue cancelada exitosamente.")
@@ -134,6 +131,7 @@ def acceder_reportes():
     menu_reportes(reservas)
 
 def menu_principal():
+    # si el usuario el de a enter la condicion se cumple y entra al bucle
     while True:
         print("\n" + "="*70)
         print(" "*20 + "SISTEMA DE GESTIÓN DE RESERVAS")
@@ -150,7 +148,9 @@ def menu_principal():
         
         # Mostrar info rápida
         activas = sum(1 for r in reservas if r.get('estado') == 'activa')
+        # este print muestra el estado actual de las reservas
         print(f"\n📊 Estado actual: {len(reservas)} reserva(s) total | {activas} activa(s)")
+        # pide al usuario que seleccione una opción
         
         opcion = input("\n👉 Seleccione una opción (1-7): ").strip()
         
@@ -158,13 +158,13 @@ def menu_principal():
             crear_reserva_completa()
         
         elif opcion == '2':
-            mostrar_todas_reservas()  # ✅ CORREGIDO
+            mostrar_todas_reservas()  
         
         elif opcion == '3':
-            buscar_reservas()  # ✅ CORREGIDO
+            buscar_reservas()  
         
         elif opcion == '4':
-            cancelar_reserva_menu()  # ✅ CORREGIDO
+            cancelar_reserva_menu()  
         
         elif opcion == '5':
             acceder_reportes()
@@ -176,11 +176,13 @@ def menu_principal():
             print("="*70)
             
             if len(reservas) == 0:
+                # no reservara si no hay nada que exportar
                 print("\n⚠️  No hay reservas para exportar.\n")
                 input("Presione Enter para continuar...")
                 continue
             
             from datetime import datetime
+            #aqui se genera el nombre del archivo con la fecha y hora actual
             fecha_actual = datetime.now().strftime("%Y%m%d_%H%M%S")
             nombre_archivo = f"reservas_{fecha_actual}.txt"
             
@@ -193,17 +195,19 @@ def menu_principal():
             input("\nPresione Enter para continuar...")
         
         elif opcion == '7':
+            # aqui se maneja la salida del programa
             print("\n" + "="*70)
             print(" "*15 + "¡Gracias por usar el sistema!")
             print(" "*20 + "Hasta pronto 👋")
             print("="*70 + "\n")
             break
-        
+        #aqui se maneja el caso de una opción inválida
         else:
             print("\n❌ Opción inválida. Por favor seleccione 1-7.")
             input("\nPresione Enter para continuar...")
 
 def mostrar_bienvenida():
+    # Mensaje de bienvenida, que va antes del menú principal
     print("\n" + "="*70)
     print(" "*15 + "BIENVENIDO AL SISTEMA DE RESERVAS")
     print("="*70)
@@ -216,16 +220,23 @@ def mostrar_bienvenida():
     input("\n  Presione Enter para continuar...")
 
 if __name__ == "__main__":
+    # Manejo de excepciones a nivel global
     try:
+        # Mostrar bienvenida y menú principal
         mostrar_bienvenida()
         menu_principal()
         
     except KeyboardInterrupt:
+        # Manejo de Ctrl+C para salir limpiamente
         print("\n\n⚠️  Programa interrumpido por el usuario.")
         print("👋 ¡Hasta pronto!\n")
     
     except Exception as e:
+        # Manejo de cualquier otra excepción inesperada
         print(f"\n❌ Error inesperado: {e}")
         print("Por favor, contacte al administrador del sistema.\n")
         import traceback
+
         traceback.print_exc()
+
+
