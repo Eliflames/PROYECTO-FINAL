@@ -8,10 +8,10 @@ from datetime import datetime, timedelta
 PERSONAS_MINIMO = 1
 PERSONAS_MAXIMO = 100  # Límite máximo de personas por reserva
 
-#  NUEVO: Límite de días adelantados para reservar
+#  Límite de días adelantados para reservar
 DIAS_ADELANTADOS_MAXIMO = 15  # Máximo 15 días en el futuro
 
-#  NUEVO: Horarios permitidos
+#  Horarios permitidos
 HORA_INICIO = "08:00"  # Horario de apertura
 HORA_CIERRE = "23:00"  # Horario de cierre (última reserva)
 
@@ -29,7 +29,7 @@ def validar_fecha(fecha):
         if fecha_dt.date() < hoy:
             return False, "La fecha no puede estar en el pasado."
 
-        # ✅ NUEVO: Verificar que no supere el límite de días adelantados
+        #  Verificar que no supere el límite de días adelantados
         if fecha_dt.date() > fecha_limite:
             return False, f"Solo se pueden hacer reservas hasta {DIAS_ADELANTADOS_MAXIMO} días adelantados."
 
@@ -48,7 +48,7 @@ def validar_horario(hora):
         hora_inicio_dt = datetime.strptime(HORA_INICIO, "%H:%M").time()
         hora_cierre_dt = datetime.strptime(HORA_CIERRE, "%H:%M").time()
         
-        # ✅ NUEVO: Verificar que esté dentro del horario de operación
+        #  Verificar que esté dentro del horario de operación
         if hora_dt < hora_inicio_dt or hora_dt > hora_cierre_dt:
             return False, f"El horario debe estar entre {HORA_INICIO} y {HORA_CIERRE}."
         
@@ -57,7 +57,7 @@ def validar_horario(hora):
     except ValueError:
         return False, "Formato de horario inválido."
 
-# ============================================================================
+
 # FUNCIÓN 3: VALIDAR FECHA Y HORARIO JUNTOS
 # ============================================================================
 def validar_fecha_y_horario(fecha, horario):
@@ -78,7 +78,7 @@ def validar_fecha_y_horario(fecha, horario):
     except ValueError:
         return False, "Error al validar fecha y horario."
 
-# ============================================================================
+
 # FUNCIÓN 4: VALIDAR NÚMERO DE PERSONAS
 # ============================================================================
 def validar_personas(personas):
@@ -95,7 +95,7 @@ def validar_personas(personas):
     
     return True
 
-# ============================================================================
+
 #  NUEVA FUNCIÓN: CONFIGURAR LÍMITES DEL SISTEMA
 # ============================================================================
 def configurar_limites():
@@ -202,7 +202,7 @@ def configurar_limites():
     print('='*70)
     input('\nPresione Enter para continuar...')
 
-# ============================================================================
+
 #  NUEVA FUNCIÓN: MOSTRAR LÍMITES ACTUALES
 # ============================================================================
 def mostrar_limites():
@@ -215,7 +215,7 @@ def mostrar_limites():
     print(f'  👥 Personas: {PERSONAS_MINIMO} - {PERSONAS_MAXIMO}')
     print('='*70 + '\n')
 
-# ============================================================================
+
 # FUNCIÓN 5: SOLICITAR DATOS DE RESERVA
 # ============================================================================
 def solicitar_datos_reserva():
@@ -230,7 +230,7 @@ def solicitar_datos_reserva():
     print(f'  • Horario: {HORA_INICIO} - {HORA_CIERRE}')
     print(f'  • Personas: {PERSONAS_MINIMO} - {PERSONAS_MAXIMO}')
     
-    # ========================================
+    
     # SOLICITAR NOMBRE
     # ========================================
     while True:
@@ -240,7 +240,7 @@ def solicitar_datos_reserva():
         else:
             break
     
-    # ========================================
+    
     # SOLICITAR SERVICIO
     # ========================================
     print('\n📋 Tipos de servicio disponibles:')
@@ -263,7 +263,7 @@ def solicitar_datos_reserva():
         else:
             print('❌ Opción inválida. Seleccione 1-4.')
     
-    # ========================================
+    
     # SOLICITAR FECHA
     # ========================================
     while True:
@@ -279,7 +279,7 @@ def solicitar_datos_reserva():
             print(f'❌ Error: {mensaje}')
             print('   Ejemplo: 25/12/2025')
     
-    # ========================================
+    
     # SOLICITAR HORARIO
     # ========================================
     while True:
@@ -301,7 +301,7 @@ def solicitar_datos_reserva():
 
         break
     
-    # ========================================
+    
     # SOLICITAR NÚMERO DE PERSONAS
     # ========================================
     while True:
@@ -321,7 +321,6 @@ def solicitar_datos_reserva():
         else:
             break
     
-    # ========================================
     # CREAR DICCIONARIO DE RESERVA
     # ========================================
     reserva = {
@@ -335,4 +334,5 @@ def solicitar_datos_reserva():
     }
     
     return reserva
+
 
