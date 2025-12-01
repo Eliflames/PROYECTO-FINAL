@@ -1,13 +1,13 @@
 
 # PARTE 1: VALIDACIONES Y ENTRADA DE DATOS
 from datetime import datetime
-
+# en anteriores versiones no habia un maximo de personas ahora se agrego a esta version
 # ============================================================================
 # CONFIGURACIÓN: LÍMITES DEL SISTEMA
 # ============================================================================
 PERSONAS_MINIMO = 1
 PERSONAS_MAXIMO = 100  # ✅ Límite máximo de personas por reserva
-
+# se definen como constantes para asi mantener un limite fijo
 # ============================================================================
 # FUNCIÓN 1: VALIDAR FECHA
 # ============================================================================
@@ -19,14 +19,17 @@ def validar_fecha(fecha):
     """
     try:
         fecha_dt = datetime.strptime(fecha, "%d/%m/%Y")
+        # esta es la fecha actual 
         hoy = datetime.now().date()
 
         # Verificar que la fecha no esté en el pasado
         if fecha_dt.date() < hoy:
+            # la fecha esta en el pasado
             return False
-
+            
+        # la fecha es valida
         return True
-
+        # si hay un error en el formato se captura la excepcion
     except ValueError:
         return False
 
@@ -39,8 +42,10 @@ def validar_horario(hora):
     """
     try:
         datetime.strptime(hora, "%H:%M")
+        # el horario es valido
         return True
     except ValueError:
+        # el formato es invalido
         return False
 
 # ============================================================================
@@ -59,10 +64,14 @@ def validar_fecha_y_horario(fecha, horario):
         
         # Validar que la reserva no esté en el pasado
         if reserva_dt <= ahora_dt:
+            # la fecha y hora estan en el pasado
             return False
+            # la fecha y hora son invalidas
         return True
+        # la fecha y hora son validas
     
     except ValueError:
+        # si hay un error en el formato se captura la excepcion
         return False
 
 # ============================================================================
@@ -75,10 +84,13 @@ def validar_personas(personas):
     - Debe estar entre PERSONAS_MINIMO y PERSONAS_MAXIMO
     """
     if not isinstance(personas, int):
+        # no es un entero
         return False
     
     if personas < PERSONAS_MINIMO or personas > PERSONAS_MAXIMO:
+        # fuera de los limites permitidos
         return False
+        # es valido
     
     return True
 
@@ -102,6 +114,7 @@ def solicitar_datos_reserva():
         if nombre == '':
             print('❌ El nombre no puede estar vacío. Intente nuevamente.')
         else:
+            # el nombre es valido
             break
     
     # ========================================
@@ -121,7 +134,9 @@ def solicitar_datos_reserva():
             '3': 'Evento especial',
             '4': 'Sala de conferencias'
         }
+        # verificar si la opcion es valida
         if opcion in servicios:
+            # el servicio es valido
             servicio = servicios[opcion]  # ✅ CORREGIDO: era 'servicios = servicios[opcion]'
             break
         else:
@@ -133,8 +148,10 @@ def solicitar_datos_reserva():
     while True:
         fecha = input('\n📅 Ingrese la fecha de la reserva (DD/MM/AAAA): ').strip()
         if validar_fecha(fecha):
+            # la fecha es valida
             break
         else:
+            # la fecha es invalida
             print('❌ Error: Fecha inválida o en el pasado.')
             print('   Ejemplo: 25/12/2025')
     
@@ -145,10 +162,12 @@ def solicitar_datos_reserva():
         horario = input('\n🕐 Ingrese la hora de la reserva (HH:MM): ').strip()
 
         if not validar_horario(horario):
+            # el formato del horario es invalido
             print('❌ Formato inválido. Ejemplo: 19:00')
             continue
 
         if not validar_fecha_y_horario(fecha, horario):
+            # la fecha y hora estan en el pasado
             print('❌ La fecha y hora no pueden estar en el pasado.')
             print('   Por favor, ingrese una fecha/hora futura.')
             continue
@@ -159,16 +178,20 @@ def solicitar_datos_reserva():
     # SOLICITAR NÚMERO DE PERSONAS
     # ========================================
     while True:
+        # se solicita el numero de personas
         personas_str = input(f'\n👥 Número de personas ({PERSONAS_MINIMO}-{PERSONAS_MAXIMO}): ').strip()
         
         if not personas_str.isdigit():
+            # no es un numero valido
             print(f'❌ Error: Ingrese un número válido.')
             continue
         
         personas = int(personas_str)
         
         if personas < PERSONAS_MINIMO:
+            # no cumple el minimo
             print(f'❌ Error: Mínimo {PERSONAS_MINIMO} persona(s).')
+            # no cumple el maximo
         elif personas > PERSONAS_MAXIMO:
             print(f'❌ Error: Máximo {PERSONAS_MAXIMO} persona(s) por reserva.')
             print(f'   Para grupos mayores, contacte al administrador.')
@@ -188,4 +211,5 @@ def solicitar_datos_reserva():
         'estado': 'activa'
     }
     
+
     return reserva
