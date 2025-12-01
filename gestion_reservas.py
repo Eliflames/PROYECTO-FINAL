@@ -4,7 +4,7 @@
 # ============================================================================
 # FUNCIÓN AUXILIAR: MOSTRAR UNA RESERVA
 # ============================================================================
-def mostrar_reserva(reserva):  # ✅ CORREGIDO: parámetro singular
+def mostrar_reserva(reserva):  #parámetro singular
     """Muestra una reserva individual con formato bonito"""
     print('-' * 80)
     print(f"  Código:    {reserva['codigo']}")
@@ -53,8 +53,7 @@ def listar_todas_reservas(reservas):
             f"{reserva['personas']:<6} "
             f"{estado_visual:<15}")
     
-    # ✅ CORREGIDO: Eliminar línea duplicada
-    # print('-' * 100)  # ❌ ESTA LÍNEA CAUSABA IMPRESIÓN DOBLE
+    # print('-' * 100)  #ESTA LÍNEA CAUSABA IMPRESIÓN DOBLE
     
     print('-' * 100)
     print(f'  Total de reservas: {len(reservas)}')
@@ -288,4 +287,5 @@ def menu_busqueda_avanzada(reservas):
         
         else:
             print('\n❌ Opción inválida. Seleccione 1-5.\n')
+
             input('Presione Enter para continuar...')
