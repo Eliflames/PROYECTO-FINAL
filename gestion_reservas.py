@@ -1,9 +1,7 @@
 
 # PARTE 3: GESTIÓN DE RESERVAS
 
-# ============================================================================
 # FUNCIÓN AUXILIAR: MOSTRAR UNA RESERVA
-# ============================================================================
 def mostrar_reserva(reserva):  #parámetro singular
     """Muestra una reserva individual con formato bonito"""
     print('-' * 80)
@@ -16,9 +14,9 @@ def mostrar_reserva(reserva):  #parámetro singular
     print(f"  Estado:    {reserva['estado'].upper()}")
     print('-' * 80)
 
-# ============================================================================
+
 # FUNCIÓN 1: LISTAR TODAS LAS RESERVAS
-# ============================================================================
+
 def listar_todas_reservas(reservas):
     """Muestra todas las reservas en formato tabla"""
     print('\n' + '=' * 100)
@@ -289,3 +287,4 @@ def menu_busqueda_avanzada(reservas):
             print('\n❌ Opción inválida. Seleccione 1-5.\n')
 
             input('Presione Enter para continuar...')
+
