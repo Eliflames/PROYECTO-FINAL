@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 from datetime import datetime
 
 #Las funciones de reporte reciben la lista de reservas como parámetro.
@@ -202,7 +202,7 @@ def menu_reportes(reservas):
 			break
 		else:
 			print("Opción inválida, intente de nuevo.")
-=======
+
 from datetime import datetime
 
 #Las funciones de reporte reciben la lista de reservas como parámetro.
@@ -408,4 +408,4 @@ def menu_reportes(reservas):
 			print("Opción inválida, intente de nuevo.")
 
 # Todo este codigo sería llamado desde main.py al seleccionar la opción de reportes. 
->>>>>>> 24b1823432e672e39f45cb06fbb6ade1c7415864
+
