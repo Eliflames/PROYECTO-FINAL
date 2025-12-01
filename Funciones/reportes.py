@@ -1,4 +1,4 @@
-
+#Es la parte del sistema encargada de analizar, visualizar y almacenar los datos registrados.
 from datetime import datetime
 
 #Las funciones de reporte reciben la lista de reservas como parámetro.
