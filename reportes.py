@@ -3,9 +3,8 @@ from datetime import datetime
 #Las funciones de reporte reciben la lista de reservas como parámetro.
 def reporte_reservas_por_fecha(fecha, reservas):
 	"""Imprime todas las reservas para una fecha dada (formato DD/MM/AAAA)."""
-	resultados = [r for r in reservas if r.get('fecha') == fecha]
-	print("\n=== Reporte: Reservas para fecha: {} ===".format(fecha))
-	if not resultados:
+	resultados = [r for r in reservas if r.get('fecha') == fecha] # Filtra la lista de reservas y crea una nueva lista (resultados)  
+	if not resultados:                                            # Si la lista está vacía, imprime mensaje y retorna.
 		print("No hay reservas para esa fecha.")
 		return
 
@@ -25,14 +24,14 @@ def reporte_reservas_por_fecha(fecha, reservas):
 		))
 
 
-def reporte_total_reservas(reservas):
+def reporte_total_reservas(reservas):   #Funcion para reporte total de reservas
 	"""Imprime el total de reservas y un desglose por estado."""
 	total = len(reservas)
 	activas = sum(1 for r in reservas if r.get('estado') == 'activa')
 	canceladas = sum(1 for r in reservas if r.get('estado') == 'cancelada')
 	print("\n=== Reporte: Total de reservas ===")
 	print(f"Total: {total}")
-	print(f"Activas: {activas}")
+	print(f"Activas: {activas}")          #Se imprime el total de reservas activas y canceladas.
 	print(f"Canceladas: {canceladas}")
 
 
@@ -84,7 +83,7 @@ def exportar_a_archivo(reservas, nombre_archivo=None):
         nombre_archivo = f"reservas_{fecha_actual}.txt"
     
     try:
-        # Abrir archivo para escribir
+        # Abre el archivo en modo escritura asegurando el cierre automático y permitiendo caracteres especiales.
         with open(nombre_archivo, 'w', encoding='utf-8') as archivo:
             # Escribir encabezado
             archivo.write("="*60 + "\n")
@@ -128,7 +127,8 @@ def exportar_a_archivo(reservas, nombre_archivo=None):
         print(f"   Total de reservas exportadas: {len(reservas)}")
         print("="*60 + "\n")
         return True
-        
+
+        # Maneja posibles errores durante la creación del archivo y evita que el programa se detenga abruptamente.
     except Exception as e:
         print(f"\n❌ Error al exportar archivo: {e}\n")
         print("="*60 + "\n")
@@ -150,7 +150,7 @@ def reporte_servicio_mas_reservado(reservas):
         print("="*60 + "\n")
         return
     
-    # Contar reservas por servicio
+    # Cuenta las reservas por cada servicio
     servicios_count = {}
     
     for reserva in reservas:
@@ -201,3 +201,5 @@ def menu_reportes(reservas):
 			break
 		else:
 			print("Opción inválida, intente de nuevo.")
+
+# Todo este codigo sería llamado desde main.py al seleccionar la opción de reportes. 
